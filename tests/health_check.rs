@@ -6,7 +6,6 @@ use zero2prod::run;
 async fn health_check_works() {
     let address = spawn_app();
 
-    println!("address: {}", address);
     let path = format!("http://{}/health-check", address.to_string());
     let client = reqwest::Client::new();
     let response = client
