@@ -1,4 +1,4 @@
-use std::net::{TcpListener, SocketAddr};
+use std::net::{SocketAddr, TcpListener};
 
 use zero2prod::run;
 

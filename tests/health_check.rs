@@ -20,7 +20,7 @@ async fn health_check_works() {
 
 fn spawn_app() -> String {
     let listener = TcpListener::bind("127.0.0.1:0").expect("failed to bind");
-    let address= listener.local_addr().unwrap().to_string();
+    let address = listener.local_addr().unwrap().to_string();
     let server = run(listener).unwrap();
 
     tokio::spawn(server);
