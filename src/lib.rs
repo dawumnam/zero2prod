@@ -1,5 +1,5 @@
 use hyper::server::conn::AddrIncoming;
-use std::net::SocketAddr;
+use std::net:: TcpListener;
 
 use axum::{
     http::StatusCode,
@@ -7,11 +7,9 @@ use axum::{
     Router, Server,
 };
 
-pub fn run() -> Result<Server<AddrIncoming, IntoMakeService<Router>>, anyhow::Error> {
+pub fn run(listener:TcpListener) -> Result<Server<AddrIncoming, IntoMakeService<Router>>, anyhow::Error> {
     let app = Router::new().route("/health-check", get(health_check));
-
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-    let server = axum::Server::bind(&addr).serve(app.into_make_service());
+    let server = axum::Server::from_tcp(listener).expect("failed to build from tcp").serve(app.into_make_service());
 
     Ok(server)
 }
